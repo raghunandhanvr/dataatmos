@@ -152,8 +152,6 @@ export default function TopNavbar() {
                   <ThemeSwitcher />
                 </>
               )}
-
-              {/* Remove the theme toggle for signed-in users in console */}
             </div>
           </div>
         </div>
@@ -169,71 +167,81 @@ export default function TopNavbar() {
 }
 
 function MobileActiveItem() {
-  const { menuItems, currentPath } = useSidebarContext()
+  try {
+    const { menuItems, currentPath } = useSidebarContext()
 
-  const activeItem = useMemo(
-    () => menuItems.find(item => item.href === currentPath),
-    [menuItems, currentPath]
-  )
+    const activeItem = useMemo(
+      () => menuItems.find(item => item.href === currentPath),
+      [menuItems, currentPath]
+    )
 
-  if (!activeItem) {
+    if (!activeItem) {
+      return <span className="text-xs font-normal text-muted-foreground">Console</span>
+    }
+
+    const Icon = activeItem.icon
+
+    return (
+      <div className="flex items-center gap-2">
+        <Icon size={14} className="shrink-0 flex items-center stroke-[1.5] text-primary" />
+        <span className="text-xs font-normal text-foreground">{activeItem.label}</span>
+      </div>
+    )
+  } catch (error) {
+    // Return default when context is not available
     return <span className="text-xs font-normal text-muted-foreground">Console</span>
   }
-
-  const Icon = activeItem.icon
-
-  return (
-    <div className="flex items-center gap-2">
-      <Icon size={14} className="shrink-0 flex items-center stroke-[1.5] text-primary" />
-      <span className="text-xs font-normal text-foreground">{activeItem.label}</span>
-    </div>
-  )
 }
 
 function MobileNavigationMenu({ onClose }: { onClose: () => void }) {
-  const { menuItems, currentPath } = useSidebarContext()
+  try {
+    const { menuItems, currentPath } = useSidebarContext()
 
-  const navigationItems = useMemo(
-    () =>
-      menuItems.map(item => ({
-        ...item,
-        isActive: currentPath === item.href,
-      })),
-    [menuItems, currentPath]
-  )
+    const navigationItems = useMemo(
+      () =>
+        menuItems.map(item => ({
+          ...item,
+          isActive: currentPath === item.href,
+        })),
+      [menuItems, currentPath]
+    )
 
-  return (
-    <div className="px-5 sm:px-6 lg:px-8 py-3">
-      <div className="space-y-0.5">
-        {navigationItems.map(item => {
-          const Icon = item.icon
+    return (
+      <div className="px-5 sm:px-6 lg:px-8 py-3">
+        <div className="space-y-0.5">
+          {navigationItems.map(item => {
+            const Icon = item.icon
 
-          return (
-            <Link
-              key={item.id}
-              href={item.href}
-              onClick={onClose}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors duration-200 w-full ${
-                item.isActive ? "bg-primary/10" : "hover:bg-accent/30"
-              }`}
-            >
-              <Icon
-                size={14}
-                className={`shrink-0 flex items-center stroke-[1.5] ${
-                  item.isActive ? "text-primary" : "text-muted-foreground"
-                }`}
-              />
-              <span
-                className={`text-xs font-normal ${
-                  item.isActive ? "text-foreground" : "text-muted-foreground"
+            return (
+              <Link
+                key={item.id}
+                href={item.href}
+                onClick={onClose}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors duration-200 w-full ${
+                  item.isActive ? "bg-primary/10" : "hover:bg-accent/30"
                 }`}
               >
-                {item.label}
-              </span>
-            </Link>
-          )
-        })}
+                <Icon
+                  size={14}
+                  className={`shrink-0 flex items-center stroke-[1.5] ${
+                    item.isActive ? "text-primary" : "text-muted-foreground"
+                  }`}
+                />
+                <span
+                  className={`text-xs font-normal ${
+                    item.isActive ? "text-foreground" : "text-muted-foreground"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            )
+          })}
+        </div>
       </div>
-    </div>
-  )
+    )
+  } catch (error) {
+    // Return empty div when context is not available
+    return <div />
+  }
 }

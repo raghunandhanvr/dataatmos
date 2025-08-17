@@ -248,6 +248,15 @@
       padding: 0 2rem;
     }
   }
+
+  /* Fix for initial render width issues */
+  html, body {
+    @apply w-full h-full overflow-hidden;
+  }
+  
+  #__next, [data-nextjs-scroll-focus-boundary] {
+    @apply w-full h-full;
+  }
 }
 
 /* Main Layout Styles */
@@ -432,4 +441,34 @@
 
 .console-sidebar-collapse-text {
   @apply text-sm font-medium text-muted-foreground whitespace-nowrap;
+}
+
+@layer utilities {
+  .console-layout-fix {
+    @apply w-full flex flex-col h-full;
+  }
+  
+  .console-main-content {
+    @apply flex-1 flex overflow-hidden w-full;
+  }
+  
+  /* Fix for SidebarInset width issues */
+  [data-slot="sidebar-inset"] {
+    @apply w-full !important;
+  }
+  
+  /* Ensure console pages have full width */
+  .console-page-wrapper > *,
+  [data-slot="sidebar-inset"] > main > div > * {
+    @apply w-full;
+  }
+  
+  /* Override max-width constraints for console content */
+  [data-slot="sidebar-inset"] > main {
+    @apply w-full;
+  }
+  
+  [data-slot="sidebar-inset"] > main > div {
+    @apply w-full max-w-full;
+  }
 }

@@ -32,9 +32,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ConsoleSidebarProvider>
       <SidebarProvider>
-        <div className="h-full flex flex-col">
+        <div className="console-layout-fix">
           <TopNavbar />
-          <div className="flex-1 flex overflow-hidden">
+          <div className="console-main-content">
             <ConsoleLayout>{children}</ConsoleLayout>
           </div>
         </div>
