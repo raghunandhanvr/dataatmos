@@ -290,14 +290,6 @@
 .console-page-container {
   @apply w-full;
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (min-width: 640px) {
-  .console-page-container {
-    max-width: 80%;
-  }
 }
 
 .console-sidebar-fn {
