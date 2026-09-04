@@ -30,13 +30,13 @@ function HeroCta() {
 
 function HeroHeader() {
   return (
-    <header className="flex h-11 w-full min-w-0 shrink-0 flex-nowrap items-center justify-between gap-3">
+    <header className="flex w-full min-w-0 shrink-0 flex-nowrap items-center justify-between gap-3">
       <Link
         href="/"
         aria-label="Data Atmos home"
-        className="inline-flex size-8 shrink-0 items-center justify-center leading-none sm:size-9"
+        className="inline-flex size-10 shrink-0 items-center justify-center leading-none sm:size-11"
       >
-        <Logo className="size-8 sm:size-9" />
+        <Logo className="size-10 sm:size-11" width={44} height={44} />
       </Link>
       <HeroCta />
     </header>

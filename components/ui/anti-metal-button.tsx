@@ -33,8 +33,8 @@ function DoubleChevron({ index, dotColor }: DoubleChevronProps) {
 
   return (
     <svg
-      width="14"
-      height="16"
+      width="11"
+      height="12"
       viewBox="0 0 14 16"
       aria-hidden="true"
       focusable="false"
@@ -80,7 +80,7 @@ export const AntiMetalButton = forwardRef<HTMLButtonElement, AntiMetalButtonProp
   ) => {
     const content = label ?? (asChild ? undefined : children) ?? "Book a demo"
     const classes = cn(
-      "group/btn relative inline-flex h-11 min-w-36 overflow-hidden rounded-xl transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "group/btn relative inline-flex h-8 min-h-8 shrink-0 items-center overflow-hidden rounded-lg transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-9 sm:min-h-9",
       "bg-[linear-gradient(180deg,#1a1a1a_0%,#0a0a0a_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_12px_rgba(0,0,0,0.18)]",
       "dark:bg-[linear-gradient(180deg,#ffffff_0%,#ededed_100%)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_4px_12px_rgba(0,0,0,0.35)]",
       className
@@ -104,18 +104,18 @@ export const AntiMetalButton = forwardRef<HTMLButtonElement, AntiMetalButtonProp
 
         <span
           aria-hidden="true"
-          className="invisible inline-flex items-center whitespace-nowrap pl-12 pr-4 text-[14px] font-medium tracking-tight"
+          className="invisible inline-flex items-center whitespace-nowrap pl-9 pr-2.5 text-[12px] font-medium leading-none tracking-tight sm:pl-10 sm:pr-3 sm:text-[13px]"
         >
           {content}
         </span>
 
-        <span className="absolute inset-y-0 right-4 flex items-center whitespace-nowrap text-[14px] font-medium tracking-tight text-white dark:text-[#0a0a0a]">
+        <span className="absolute inset-y-0 right-2.5 flex items-center whitespace-nowrap text-[12px] font-medium leading-none tracking-tight text-white sm:right-3 sm:text-[13px] dark:text-[#0a0a0a]">
           {content}
         </span>
 
         <span
           aria-hidden="true"
-          className="absolute bottom-1 left-1 top-1 z-10 flex w-9 items-center justify-start gap-2.5 overflow-hidden rounded-md pl-3 pr-2.5 transition-[width,gap] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/btn:w-[calc(100%-0.5rem)]"
+          className="absolute bottom-0.5 left-0.5 top-0.5 z-10 flex w-7 items-center justify-start gap-1.5 overflow-hidden rounded-[5px] pl-2 pr-1.5 transition-[width,gap] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover/btn:w-[calc(100%-0.25rem)] sm:w-8"
           style={{
             background: `linear-gradient(180deg, ${accentFrom} 0%, ${accentTo} 100%)`,
             boxShadow:
