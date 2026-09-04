@@ -1,14 +1,9 @@
 "use client"
 
 import { type CSSProperties, useEffect, useState } from "react"
+import { marketingPhrases } from "@/lib/marketing/content"
 
-const phrases = [
-  "all your data needs.",
-  "managed databases.",
-  "real-time analytics.",
-  "data connectors.",
-  "AI workloads.",
-]
+const phrases = marketingPhrases
 
 function getOffset(item: number, active: number) {
   let offset = item - active
