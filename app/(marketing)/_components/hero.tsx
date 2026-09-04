@@ -1,34 +1,15 @@
-"use client"
-
-import { useAuth } from "@clerk/nextjs"
-import { Dithering } from "@paper-design/shaders-react"
 import Link from "next/link"
-import { useTheme } from "next-themes"
-import { type ReactNode, useEffect, useState } from "react"
-import { AntiMetalButton } from "@/components/ui/anti-metal-button"
+import type { ReactNode } from "react"
 import { Logo } from "@/components/ui/logo"
 import { ThemeSwitcher } from "@/components/ui/theme-switcher"
 import { GITHUB_URL, X_URL } from "@/lib/marketing/site"
+import { HeroCta } from "./hero-cta"
+import { HeroDithering } from "./hero-dithering"
 import { HeroTitle } from "./hero-title"
 import "./hero.css"
 
 const socialLinkClass =
   "text-sm font-mono text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
-
-function HeroCta() {
-  const { isLoaded, isSignedIn } = useAuth()
-  const signedIn = Boolean(isLoaded && isSignedIn)
-
-  return (
-    <AntiMetalButton
-      asChild
-      className="h-7 min-h-7 sm:h-8 sm:min-h-8"
-      label={signedIn ? "Go to Dashboard" : "Start for free"}
-    >
-      <Link href={signedIn ? "/dashboard" : "/auth"} />
-    </AntiMetalButton>
-  )
-}
 
 function HeroHeader() {
   return (
@@ -46,31 +27,10 @@ function HeroHeader() {
 }
 
 export function Hero({ blurb, sections }: { blurb: ReactNode; sections: ReactNode }) {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = !mounted || resolvedTheme !== "light"
-
   return (
     <div className="relative min-h-full h-full overflow-y-auto lg:overflow-hidden scrollbar-none flex flex-col lg:flex-row bg-background text-foreground">
       <div className="relative order-1 h-[10vh] min-h-[72px] w-full shrink-0 lg:order-2 lg:h-full lg:min-h-0 lg:w-1/2">
-        <Dithering
-          style={{ height: "100%", width: "100%" }}
-          colorBack={isDark ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
-          colorFront="hsl(220, 100%, 70%)"
-          shape="warp"
-          type="4x4"
-          size={2}
-          offsetX={0}
-          offsetY={0}
-          scale={1.15}
-          rotation={0}
-          speed={0.22}
-        />
+        <HeroDithering />
       </div>
 
       <div className="w-full shrink-0 lg:shrink lg:w-1/2 lg:h-full lg:overflow-y-auto scrollbar-none order-2 lg:order-1 px-6 py-6 sm:px-8 lg:px-10 lg:py-8">
