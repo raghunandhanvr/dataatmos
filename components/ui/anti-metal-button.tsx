@@ -1,7 +1,14 @@
 "use client"
 
 import { Slot } from "@radix-ui/react-slot"
-import { type ComponentProps, forwardRef, type ReactNode } from "react"
+import {
+  type ComponentProps,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  type ReactElement,
+  type ReactNode,
+} from "react"
 import { cn } from "@/lib/utils/common"
 
 type DoubleChevronProps = {
@@ -71,20 +78,15 @@ export const AntiMetalButton = forwardRef<HTMLButtonElement, AntiMetalButtonProp
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button"
     const content = label ?? (asChild ? undefined : children) ?? "Book a demo"
-
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          "group/btn relative inline-flex h-11 min-w-36 overflow-hidden rounded-xl transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          "bg-[linear-gradient(180deg,#1a1a1a_0%,#0a0a0a_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_12px_rgba(0,0,0,0.18)]",
-          "dark:bg-[linear-gradient(180deg,#ffffff_0%,#ededed_100%)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_4px_12px_rgba(0,0,0,0.35)]",
-          className
-        )}
-        {...props}
-      >
+    const classes = cn(
+      "group/btn relative inline-flex h-11 min-w-36 overflow-hidden rounded-xl transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "bg-[linear-gradient(180deg,#1a1a1a_0%,#0a0a0a_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_4px_12px_rgba(0,0,0,0.18)]",
+      "dark:bg-[linear-gradient(180deg,#ffffff_0%,#ededed_100%)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_4px_12px_rgba(0,0,0,0.35)]",
+      className
+    )
+    const internals = (
+      <>
         <style>{`
           @keyframes bd-dot-wave {
             0%, 70%, 100% { opacity: 0.25; transform: scale(0.85); }
@@ -107,7 +109,7 @@ export const AntiMetalButton = forwardRef<HTMLButtonElement, AntiMetalButtonProp
           {content}
         </span>
 
-        <span className="absolute inset-y-0 right-4 flex items-center text-[14px] font-medium tracking-tight whitespace-nowrap text-white dark:text-[#0a0a0a]">
+        <span className="absolute inset-y-0 right-4 flex items-center whitespace-nowrap text-[14px] font-medium tracking-tight text-white dark:text-[#0a0a0a]">
           {content}
         </span>
 
@@ -126,7 +128,27 @@ export const AntiMetalButton = forwardRef<HTMLButtonElement, AntiMetalButtonProp
           <DoubleChevron index={3} dotColor={dotColor} />
           <DoubleChevron index={4} dotColor={dotColor} />
         </span>
-      </Comp>
+      </>
+    )
+
+    if (asChild) {
+      if (!isValidElement(children)) {
+        return null
+      }
+
+      return (
+        <Slot ref={ref} className={classes} {...props}>
+          {cloneElement(children as ReactElement<{ children?: ReactNode }>, {
+            children: internals,
+          })}
+        </Slot>
+      )
+    }
+
+    return (
+      <button ref={ref} type="button" className={classes} {...props}>
+        {internals}
+      </button>
     )
   }
 )
