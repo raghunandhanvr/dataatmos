@@ -1,6 +1,5 @@
 .marketing-copy {
   --copy-size: min(calc(1.05rem + 0.2vw), 1.3125rem);
-  --heading-size: min(calc(1.25rem + 0.58vw), 2rem);
   --hero-muted: #8a8a8a;
   --hero-bg: #fafafa;
 }
@@ -12,20 +11,23 @@
 
 .marketing-hero-stage {
   flex: 1 1 auto;
+  min-width: 0;
   min-height: 16rem;
   display: flex;
   align-items: center;
   overflow: hidden;
+  container-type: inline-size;
 }
 
 .marketing-hero-title {
   margin: 0;
-  font-size: var(--heading-size);
+  max-width: 100%;
+  font-size: min(1.75rem, calc(100cqi / 30));
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: #2a2a2a;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .dark .marketing-hero-title {
